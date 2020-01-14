@@ -1,5 +1,6 @@
 package bigdata;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +10,15 @@ import org.apache.spark.api.java.JavaRDD;
 
 import scala.Tuple2;
 
-public class Question4 extends QuestionLong {
+public class Question4 extends QuestionLong implements Serializable {
 
 	Distribution answerA;
+	TopTen answerB;
 
 	Question4(JavaRDD<PhaseWritable> rdd){
 		JavaPairRDD<String, Long> rdd_total_time_jobs = get_total_time_jobs(rdd);
 		this.answerA = get_distribution(rdd_total_time_jobs);
+		this.answerB = new TopTen(get_top_ten(rdd_total_time_jobs), "TOTAL TIME JOBS");
 	}
 
 	private JavaPairRDD<String, Long> get_total_time_jobs(JavaRDD<PhaseWritable> rdd_non_idle){
@@ -42,10 +45,12 @@ public class Question4 extends QuestionLong {
 		return make_distribution(rdd_duration, rdd_duration_index, "TOTAL TIME JOBS DURATION");
     }
 
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nQuestion 4\n\n");
 		sb.append(this.answerA.toString());
+		sb.append(this.answerB.toString());
 		return sb.toString();
 	}
 

@@ -23,6 +23,7 @@ public class Question3 extends QuestionInt {
 		return make_distribution(rdd_njobs, rdd_njobs_index, name);
 	}
 
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nQuestion 3\n\n");

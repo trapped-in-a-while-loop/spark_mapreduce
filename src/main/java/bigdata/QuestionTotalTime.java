@@ -2,7 +2,7 @@ package bigdata;
 
 import org.apache.spark.api.java.JavaRDD;
 
-public abstract class QuestionTotalTime {
+public abstract class QuestionTotalTime extends QuestionTopTen {
 
 	protected TotalTime get_total_time(JavaRDD<PhaseWritable> rdd, String name){
 		TotalTime init = new TotalTime(name);

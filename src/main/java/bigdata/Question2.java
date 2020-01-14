@@ -24,6 +24,7 @@ public class Question2 extends QuestionInt {
 		return make_distribution(rdd_npatterns, rdd_npatterns_index, name);
 	}
 	
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nQuestion 2\n\n");

@@ -1,6 +1,8 @@
 package bigdata;
 
-public class Distribution {
+import java.io.Serializable;
+
+public class Distribution implements Serializable {
 
     private final String name;
     private double min;
@@ -86,6 +88,7 @@ public class Distribution {
         this.histogram = histogram;
     }
 
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
 		sb.append("-----------------------------------------------\n");
@@ -102,7 +105,7 @@ public class Distribution {
         for (int n = 0; n < this.histogram.length; ++n){
             sb.append(this.histogram[n] + " ");
         }
-        sb.append("\n]\n");
+        sb.append("\n]\n\n");
         return sb.toString();
     }
 }

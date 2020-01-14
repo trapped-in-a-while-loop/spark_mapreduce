@@ -1,5 +1,6 @@
 package bigdata;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 import scala.Tuple2;
 
-public class PercentTime {
+public class PercentTime implements Serializable {
 
     private final String name;
     private Map<String, Double> patterns = new HashMap<String, Double>();
@@ -19,6 +20,7 @@ public class PercentTime {
         }
     }
 
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 11; ++i){

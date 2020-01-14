@@ -1,5 +1,6 @@
 package bigdata;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +9,19 @@ import org.apache.spark.api.java.JavaRDD;
 
 import scala.Tuple2;
 
-public class Question6 extends QuestionTotalTime {
+public class Question6 extends QuestionTotalTime implements Serializable {
 
 	PercentTime answerA;
+	TopTen answerB;
 
 	Question6(JavaRDD<PhaseWritable> rdd){
-		this.answerA = get_percent_time(rdd);
+		JavaPairRDD<String, Long> rdd_total_time_patterns = get_total_time_patterns(rdd);
+		TotalTime total_time_non_idle = get_total_time(rdd, "NON IDLE PHASES TOTAL TIME");
+		this.answerA = get_percent_time(rdd_total_time_patterns, total_time_non_idle);
+		this.answerB = new TopTen(get_top_ten(rdd_total_time_patterns), "TOTAL TIME PATTERNS");
 	}
 
-	private PercentTime get_percent_time(JavaRDD<PhaseWritable> rdd_non_idle){
-
-		TotalTime total_time_non_idle = get_total_time(rdd_non_idle, "NON IDLE PHASES TOTAL TIME");
+	private JavaPairRDD<String, Long> get_total_time_patterns(JavaRDD<PhaseWritable> rdd_non_idle) {
 
 		JavaPairRDD<String, Long> rdd_total_time_patterns = rdd_non_idle.mapToPair(element -> new Tuple2<>(element.getPatterns(), element.getDuration()));
 		rdd_total_time_patterns = rdd_total_time_patterns.flatMapToPair(element -> {
@@ -36,14 +39,21 @@ public class Question6 extends QuestionTotalTime {
 		});
 		rdd_total_time_patterns = rdd_total_time_patterns.reduceByKey((x, y) -> x + y);
 
+		return rdd_total_time_patterns;
+	}
+
+	private PercentTime get_percent_time(JavaPairRDD<String, Long> rdd_total_time_patterns, TotalTime total_time_non_idle){
+
 		return new PercentTime("PATTERN ", total_time_non_idle,
 				new ArrayList<Tuple2<String, Long>>(rdd_total_time_patterns.collect()));
     }
 
+    @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nQuestion 6\n\n");
 		sb.append(this.answerA.toString());
+		sb.append(this.answerB.toString());
 		return sb.toString();
 	}
 }

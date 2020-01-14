@@ -20,6 +20,7 @@ public class TotalTime implements Serializable {
         return this.time;
     }
 
+    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("-----------------------------------------------\n");

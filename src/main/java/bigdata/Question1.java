@@ -53,6 +53,7 @@ public class Question1 extends QuestionLong {
         return dist_patterns_duration;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n\nQuestion 1\n\n");
