@@ -10,6 +10,7 @@ public class Distribution {
     private long quar1;
     private long quar3;
     private long count;
+    private long[] histogram;
 
     Distribution(String name){
         this.name = name;
@@ -77,6 +78,14 @@ public class Distribution {
         this.count = count;
     }
 
+    public long[] getHistogram() {
+        return this.histogram;
+    }
+
+    public void setHistogram(long[] histogram) {
+        this.histogram = histogram;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
 		sb.append("-----------------------------------------------\n");
@@ -88,7 +97,12 @@ public class Distribution {
 		sb.append("\naverage is = " + (long) getAvg());
 		sb.append("\nmedian is = " + getMed());
 		sb.append("\n1st quartile is = " + getQuar1());
-        sb.append("\n3rd quartile is = " + getQuar3() + "\n");
+        sb.append("\n3rd quartile is = " + getQuar3());
+        sb.append("\nhistogram is = [\n10 100 1000 10000 100000 1000000\n");
+        for (int n = 0; n < this.histogram.length; ++n){
+            sb.append(this.histogram[n] + " ");
+        }
+        sb.append("\n]\n");
         return sb.toString();
     }
 }

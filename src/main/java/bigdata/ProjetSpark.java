@@ -17,6 +17,7 @@ public class ProjetSpark {
 		SparkConf conf = new SparkConf().setAppName("Projet Spark");
 		JavaSparkContext context = new JavaSparkContext(conf);
 
+		//JavaRDD<PhaseWritable> rdd = context.sequenceFile(args[0], NullWritable.class, PhaseWritable.class).values();
 		JavaRDD<PhaseWritable> rdd = context.sequenceFile("/user/ptomas/PhaseToSeqFile/part*", NullWritable.class, PhaseWritable.class).values();
 
 		JavaRDD<PhaseWritable> rdd_non_idle = rdd.filter(element -> (!element.getPatterns().equals("-1")));
@@ -37,6 +38,7 @@ public class ProjetSpark {
 		output.add(q5.toString());
 		output.add(q6.toString());
 
+		//context.parallelize(output).saveAsTextFile(args[1]);
 		context.parallelize(output).saveAsTextFile("/user/ptomas/ProjetSpark");
 
 		context.close();

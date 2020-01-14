@@ -14,10 +14,11 @@ public class Question4 extends QuestionLong {
 	Distribution answerA;
 
 	Question4(JavaRDD<PhaseWritable> rdd){
-		this.answerA = get_distribution(rdd);
+		JavaPairRDD<String, Long> rdd_total_time_jobs = get_total_time_jobs(rdd);
+		this.answerA = get_distribution(rdd_total_time_jobs);
 	}
 
-	private Distribution get_distribution(JavaRDD<PhaseWritable> rdd_non_idle){
+	private JavaPairRDD<String, Long> get_total_time_jobs(JavaRDD<PhaseWritable> rdd_non_idle){
 
 		JavaPairRDD<String, Long> rdd_total_time_jobs = rdd_non_idle.mapToPair(element -> new Tuple2<>(element.getJobs(), element.getDuration()));
 		rdd_total_time_jobs = rdd_total_time_jobs.flatMapToPair(element -> {
@@ -29,7 +30,10 @@ public class Question4 extends QuestionLong {
 			return result.iterator();
 		});
 		rdd_total_time_jobs = rdd_total_time_jobs.reduceByKey((x, y) -> x + y);
+		return rdd_total_time_jobs;
+	}
 
+	private Distribution get_distribution(JavaPairRDD<String, Long> rdd_total_time_jobs){
 		JavaDoubleRDD rdd_duration = rdd_total_time_jobs.mapToDouble(element -> (double)element._2);
 		JavaPairRDD<Long, Long> rdd_duration_index = rdd_total_time_jobs.map(element -> element._2)
 			.sortBy((Long element) -> element, true, rdd_total_time_jobs.getNumPartitions()).zipWithIndex()

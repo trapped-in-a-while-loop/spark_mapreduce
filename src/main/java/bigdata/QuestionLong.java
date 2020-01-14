@@ -10,6 +10,9 @@ public abstract class QuestionLong {
 
 		Distribution distribution = new Distribution(name);
 
+		double[] bucket = {10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 10000000.0};
+		distribution.setHistogram(rdd_values.histogram(bucket));
+
 		StatCounter stat = rdd_values.stats();
 
 		distribution.setMin(stat.min());
