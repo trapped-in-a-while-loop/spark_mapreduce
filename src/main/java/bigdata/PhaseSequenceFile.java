@@ -41,9 +41,8 @@ public class PhaseSequenceFile extends Configured implements Tool {
     public int run(String[] args) throws Exception {
 
         Configuration conf = getConf();
-        //Path input = new Path("/raw_data/ALCF_repo/phases.csv");
-        Path input = new Path("/user/ptomas/phases.csv");
-        Path output = new Path("/user/ptomas/PhaseToSeqFile");
+        Path input = new Path("/raw_data/ALCF_repo/phases.csv");
+        Path output = new Path(args[0]);
 
         Job job = Job.getInstance(conf, "PhaseSequenceFile");
         job.setJarByClass(PhaseSequenceFile.class);

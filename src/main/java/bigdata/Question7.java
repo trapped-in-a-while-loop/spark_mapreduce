@@ -15,6 +15,10 @@ public class Question7 {
 
     Question7(JavaRDD<PhaseWritable> rdd, Integer[] patterns) {
         assert patterns.length == 4;
+        this.answer = get_hours(rdd, patterns);
+    }
+
+    private Hours get_hours(JavaRDD<PhaseWritable> rdd, Integer[] patterns) {
         List<Integer> list_patterns = new ArrayList<Integer>(Arrays.asList(patterns));
         JavaRDD<PhaseWritable> rdd_filtered = rdd.filter((PhaseWritable element) -> 
             element.getPatterns().contains(String.valueOf(list_patterns.get(0))) && element.getPatterns().contains(String.valueOf(list_patterns.get(1))) &&
@@ -34,7 +38,8 @@ public class Question7 {
             return result.iterator();
         });
         rdd_patterns_hours = rdd_patterns_hours.distinct();
-        this.answer = new Hours(rdd_patterns_hours.collect(), "PATTERNS PER HOURS");
+
+        return new Hours(rdd_patterns_hours.collect(), "PATTERNS PER HOURS");
     }
 
     @Override

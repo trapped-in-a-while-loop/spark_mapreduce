@@ -44,8 +44,7 @@ public class Question1 extends QuestionLong {
         JavaRDD<PhaseWritable> rdd_pattern;
         List<Distribution> dist_patterns_duration = new ArrayList<Distribution>();
 
-        // for (AtomicInteger i = new AtomicInteger(); i.get() < 22; i.incrementAndGet()){
-        for (AtomicInteger i = new AtomicInteger(0); i.get() < 11; i.incrementAndGet()) {
+        for (AtomicInteger i = new AtomicInteger(); i.get() < 22; i.incrementAndGet()){
             rdd_pattern = rdd.filter((PhaseWritable element) -> (element.getPatterns().equals(i.toString())));
             dist_patterns_duration.add(get_distribution(rdd_pattern, "PATTERN " + i.toString() + " DURATION"));
         }

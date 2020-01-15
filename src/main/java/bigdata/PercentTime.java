@@ -23,8 +23,7 @@ public class PercentTime implements Serializable {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 11; ++i){
-        //for (int i = 0; i < 22: ++i){
+        for (int i = 0; i < 22: ++i){
             sb.append("-----------------------------------------------\n");
             sb.append(this.name + String.valueOf(i) + "\n");
             sb.append("-----------------------------------------------\n");

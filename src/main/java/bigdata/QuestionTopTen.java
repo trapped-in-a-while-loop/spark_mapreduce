@@ -19,7 +19,6 @@ public abstract class QuestionTopTen {
     }
 
     protected List<Tuple2<String, Long>> get_top_ten(JavaPairRDD<String, Long> rdd){
-        //return new TopTen(rdd.top(10, new InnerComparator()), name);
-        return rdd.top(3, new InnerComparator());
+        return rdd.top(10, new InnerComparator());
     }
 }
