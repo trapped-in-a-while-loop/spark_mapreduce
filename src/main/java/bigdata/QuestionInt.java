@@ -10,15 +10,22 @@ public abstract class QuestionInt {
 
 		Distribution distribution = new Distribution(name);
 
-		double[] bucket = {10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, 10000000.0};
-		distribution.setHistogram(rdd_values.histogram(bucket));
-
 		StatCounter stat = rdd_values.stats();
 
 		distribution.setMin(stat.min());
 		distribution.setMax(stat.max());
 		distribution.setAvg(stat.mean());
 		distribution.setCount(stat.count());
+
+		final double step = (stat.max() - stat.min()) / 5.0;
+		double[] bucket = new double[6];
+		bucket[0] = stat.min();
+		for (int n = 1; n < 5; ++n) {
+			bucket[n] = bucket[n - 1] + step;
+		}
+		bucket[5] = stat.max();
+		distribution.setHistogram(rdd_values.histogram(bucket));
+		distribution.setBucket(bucket);
 
 		long size = rdd_indexed.count();
 
