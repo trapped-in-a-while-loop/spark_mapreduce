@@ -29,6 +29,8 @@ public class ProjetSpark {
 		Question4 q4 = new Question4(rdd_non_idle);
 		Question5 q5 = new Question5(rdd_idle);
 		Question6 q6 = new Question6(rdd_non_idle);
+		Integer[] patterns = {2, 5, 8, 9};
+		Question7 q7 = new Question7(rdd, patterns);
 
 		List<String> output = new ArrayList<String>();
 		output.add(q1.toString());
@@ -37,6 +39,7 @@ public class ProjetSpark {
 		output.add(q4.toString());
 		output.add(q5.toString());
 		output.add(q6.toString());
+		output.add(q7.toString());
 
 		//context.parallelize(output).saveAsTextFile(args[1]);
 		context.parallelize(output).saveAsTextFile("/user/ptomas/ProjetSpark");
