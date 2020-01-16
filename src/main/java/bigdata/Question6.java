@@ -12,13 +12,13 @@ import scala.Tuple2;
 public class Question6 extends QuestionTotalTime implements Serializable {
 
 	PercentTime answerA;
-	TopTen answerB;
+	TopK answerB;
 
 	Question6(JavaRDD<PhaseWritable> rdd){
 		JavaPairRDD<String, Long> rdd_total_time_patterns = get_total_time_patterns(rdd);
 		TotalTime total_time_non_idle = get_total_time(rdd, "NON IDLE PHASES TOTAL TIME");
 		this.answerA = get_percent_time(rdd_total_time_patterns, total_time_non_idle);
-		this.answerB = new TopTen(get_top_ten(rdd_total_time_patterns), "TOTAL TIME PATTERNS");
+		this.answerB = new TopK(get_top_k(rdd_total_time_patterns), "TOTAL TIME PATTERNS");
 	}
 
 	private JavaPairRDD<String, Long> get_total_time_patterns(JavaRDD<PhaseWritable> rdd_non_idle) {

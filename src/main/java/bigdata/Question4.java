@@ -13,12 +13,12 @@ import scala.Tuple2;
 public class Question4 extends QuestionLong implements Serializable {
 
 	Distribution answerA;
-	TopTen answerB;
+	TopK answerB;
 
 	Question4(JavaRDD<PhaseWritable> rdd){
 		JavaPairRDD<String, Long> rdd_total_time_jobs = get_total_time_jobs(rdd);
 		this.answerA = get_distribution(rdd_total_time_jobs);
-		this.answerB = new TopTen(get_top_ten(rdd_total_time_jobs), "TOTAL TIME JOBS");
+		this.answerB = new TopK(get_top_k(rdd_total_time_jobs), "TOTAL TIME JOBS");
 	}
 
 	private JavaPairRDD<String, Long> get_total_time_jobs(JavaRDD<PhaseWritable> rdd_non_idle){

@@ -10,6 +10,7 @@ import scala.Tuple2;
 
 public class PercentTime implements Serializable {
 
+    public static final int NPATTERNS = 22;
     private final String name;
     private Map<String, Double> patterns = new HashMap<String, Double>();
 
@@ -23,7 +24,7 @@ public class PercentTime implements Serializable {
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 22: ++i){
+        for (int i = 0; i < NPATTERNS; ++i){
             sb.append("-----------------------------------------------\n");
             sb.append(this.name + String.valueOf(i) + "\n");
             sb.append("-----------------------------------------------\n");

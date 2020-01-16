@@ -8,7 +8,9 @@ import org.apache.spark.api.java.JavaPairRDD;
 
 import scala.Tuple2;
 
-public abstract class QuestionTopTen {
+public abstract class QuestionTopK {
+
+    public static final int K = 10;
 
     protected class InnerComparator implements Comparator<Tuple2<String, Long>>, Serializable {
 
@@ -18,7 +20,7 @@ public abstract class QuestionTopTen {
         }
     }
 
-    protected List<Tuple2<String, Long>> get_top_ten(JavaPairRDD<String, Long> rdd){
-        return rdd.top(10, new InnerComparator());
+    protected List<Tuple2<String, Long>> get_top_k(JavaPairRDD<String, Long> rdd){
+        return rdd.top(K, new InnerComparator());
     }
 }

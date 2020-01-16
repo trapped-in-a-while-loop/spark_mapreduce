@@ -4,7 +4,7 @@ import org.apache.spark.api.java.JavaDoubleRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.util.StatCounter;
 
-public abstract class QuestionLong extends QuestionTopTen {
+public abstract class QuestionLong extends QuestionTopK {
 
 	protected Distribution make_distribution(JavaDoubleRDD rdd_values, JavaPairRDD<Long,Long> rdd_indexed, String name) {
 
